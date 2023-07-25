@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>employPortal</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
+
+    <style>
+      body {
+        background: rgb(219, 226, 226);
+      }
+
+      .card,.table {
+        /* border: 2px solid black; */
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 12px 12px 22px grey;
+        height:100%;
+      }
+
+      #editable,.imageHide{
+        display: none;
+      }
+
+      #view,#searchOffButton{
+        display: none;
+      }
+      
+      .danger{
+          color: red;
+      }
+
+      .imgHide{
+        display: none;
+      }
+
+
+    </style>
+  </head>
+<body>
+    <div class="container text-center">     <!-- main container class start -->
+
+      <!-- editable placed here (will help to edit my data entries)-->
+      <div class="container d-flex justify-content-center w-50">
+      <div class="card mt-5 mb-5 " id="editable"  > 
+          <form action="#" id="edit_form" onsubmit="update()">
+            <div class="mb-4 mt-5 d-flex justify-content-md-start">
+              <label class="ps-2"  for="edit_id1" ><b>ID:<span class="text-white">......</span></b></label>
+              <input id="edit_id1" name='id' class="input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value='' disabled  >
+            </div>
+
+            <span class="danger" id="isNameValid_edit"></span>
+            <div class="mb-4 d-flex justify-content-md-start">
+              <label class="ps-2"  for="edit_name"><b>Name:</b></label>
+              <input id="edit_name" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+            </div>
+  
+            <small id="isAgeValid_edit" class="danger"> </small>   
+            <div class="mb-4 d-flex justify-content-md-start">
+              <label class="me-3 ps-2"  for="edit_age"><b>Age:</b></label>
+              <input id="edit_age" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+            </div>
+  
+
+            <div class="mb-4 d-flex justify-content-md-start">
+              <label class="me-0 ps-2"  for="edit_image"><b>Image:</b></label>
+              <input id="edit_image" name='image' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+            </div>
+  
+            <span class="danger" id="isGenderValid_edit"></span>
+            <div class="mb-4 d-flex justify-content-md-start ">
+              <label class="me-3 ps-2 "  for="edit_gender"><b>Gender:</b></label>                      
+                <select id="edit_gender" class="input-sm pb-0 pt-1 me-2 ps-3" style="width:100%; "> 
+                  <option selected>select</option>
+                  <option value="Male">Male</option>
+                  <option value="Female">Female</option>
+                  <option value="Female">Others</option>
+                </select>
+            </div>
+            
+            <span class="danger" id="isDesgValid_edit"></span>
+            <div class="mb-4 d-flex justify-content-md-start">
+              <label class="me-3 ps-2"  for="edit_designation"><b>Designation:</b></label>                      
+                <select id="edit_designation" class="input-sm pb-0 pt-1 me-2 pe-3 " >
+                  <option selected>select</option>
+                  <option value="Solution Analyst">Solution Analyst</option>
+                  <option value="Team relentness">Team relentness</option>
+                  <option value="Human resource">Human resource</option>
+                </select>
+            </div>
+  
+            <div class="mb-4 d-flex justify-content-center">
+              <button  id="editableButton" type="submit" class="btn btn-dark ps-5 pe-5">SAVE</button>
+            </div>
+          </form>
+  
+          
+        </div>
+        </div>    <!-- editable end here -->
+      <!-- view section starts here -->
+      <div class="container d-flex justify-content-center " >
+      <div class="card mt-5 mb-0 " id="view" style="width: 18rem;">
+        <img id="selfImage" src="" class="card-img-top" alt="wrong url ">
+        <div class="card-body">
+         
+            <div class="mb-1 d-flex justify-content-md-start">
+              <label class="ps-2"  for="view_id1" ><b>ID:<span class="text-white">......</span></b></label>
+              <input id="view_id1" name='id' class="input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value='' disabled  >
+  
+            </div>
+  
+            <div class="mb-1 d-flex justify-content-md-start">
+              <label class="ps-2"  for="view_name"><b>Name:</b></label>
+              <input id="view_name" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value='' disabled >
+            </div>
+  
+            
+            <div class="mb-1 d-flex justify-content-md-start">
+              <label class="me-3 ps-2"  for="view_age"><b>Age:</b></label>
+              <input id="view_age" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value='' disabled>
+            </div>
+  
+  
+            <div class="mb-1 d-flex justify-content-md-start ">
+              <label class="me-3 ps-2 "  for="view_gender"><b>Gender:</b></label>                      
+              <input id="view_gender" name='name' class=" input input-sm ms-0 me-1 rounded-2" style="width:100%" type="text" value='' disabled >
+                
+            </div>
+            
+            <div class="mb-1 d-flex justify-content-md-start">
+              <label class="me-3 ps-2"  for="view_designation"><b>Designation:</b></label>    
+              <input id="view_designation" name='name' class=" input input ms-0 me-1 rounded-2" style="width:100%" type="text" value='' disabled>
+            </div>
+  
+            <div class="mb-2 d-flex justify-content-center">
+              <button onclick="viewDone()"  id="viewDone" type="submit" class="btn btn-dark ps-5 pe-5">DONE</button>
+            </div>
+        
+        </div>
+      </div>
+    </div>
+    <!-- view section end here -->
+
+      <!-- main heading  navigation bar-->
+      <nav class="navbar navbar-expand-lg navbar-light bg-light">
+        <div class="container-fluid">
+          <h2 id="h2_gallery"  class="mt-0 mb-0 text-uppercase   shadow-sm bg-light ">Employee Portal</h2>
+            <form class="d-flex justify-content-end" >
+              <!-- searchData()   -->
+              <input id="searchFor" class="form-control me-2 d-flex justify-content-end" type="" placeholder="Search">
+              <button type="button" id="searchOffButton" onclick="searchOff()" class="btn btn-light"> <img src="searchOff.png" alt="searchOff"></button>
+              <button type="button"  id="searchButton" onclick="searchData()"  class="btn btn-success" type="submit">Search</button>
+            </form>
+          
+        </div>
+      </nav>
+      <!-- nav ended -->
+
+        
+            <div class="row gx-5 mt-5">
+
+              <!-- first half start -->
+              <div class="col-lg-3 d-flex justify-content-center pb-5" id="one">  
+                <form  id="myForm" onsubmit="inputForm()"  >
+                
+                <div class="card">
+                <!-- <div class=""> -->
+                    <h3>Employee Registration</h3>
+
+                    <span class="danger" id="isIdValid"></span>
+                    <div class="mb-4 mt-0 d-flex justify-content-md-start">
+                      <label class="ps-2"  for="id1" ><b>ID:<span class="text-white">......</span></b></label>
+                      <input id="id1" name='id' class="input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value='' >
+
+                    </div>
+                    <span class="danger" id="isNameValid"></span>
+                    <div class="mb-4 d-flex justify-content-md-start">
+                      <label class="ps-2"  for="name"><b>Name:</b></label>
+                      <input id="name" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+                    </div>
+
+                    <span id="isAgeValid" class="danger"> </span>   
+                    <div class="mb-4 d-flex justify-content-md-start">
+                      <label class="me-3 ps-2"  for="age"><b>Age:</b></label>
+                      <input id="age" name='name' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+                    </div>
+
+                    <div class="mb-4 d-flex justify-content-md-start">
+                      <label class="me-0 ps-2"  for="image"><b>Image:</b></label>
+                      <input id="image" name='image' class=" input input-sm ms-4 me-2 rounded-2" style="width:100%" type="text" value=''>
+                    </div>
+
+                    <span class="danger" id="isGenderValid"></span>
+                    <div class="mb-4 d-flex justify-content-md-start ">
+                      <label class="me-3 ps-2 "  for="gender"><b>Gender:</b></label>                      
+                        <select id="gender" class="input-sm pb-0 pt-1 me-2 ps-3" style="width:100%; "> 
+                          <option selected>select</option>
+                          <option value="Male">Male</option>
+                          <option value="Female">Female</option>
+                          <option value="Female">Others</option>
+                        </select>
+                    </div>
+                    
+                    <span class="danger" id="isDesgValid"></span>
+                    <div class="mb-4 d-flex justify-content-md-start">
+                      <label class="me-3 ps-2"  for="designation"><b>Designation:</b></label>                      
+                        <select id="designation" class="input-sm pb-0 pt-1 me-2 pe-3 " >
+                          <option selected>select</option>
+                          <option value="Solution Analyst">Solution Analyst</option>
+                          <option value="Team relentness">Team relentness</option>
+                          <option value="Human resource">Human resource</option>
+                        </select>
+                    </div>
+
+                    <div class="mb-4 d-flex justify-content-center">
+                      <button  id="addButton" type="submit" class="btn btn-dark ps-5 pe-5">ADD</button>
+                    </div>
+
+                  <!-- </div> -->
+                </div>
+                
+              </form> 
+              </div>    
+              <!-- first half done -->
+
+              <!-- second half start -->
+              <div class="col mb-5" id="two">
+
+                <table class="table" id="myTable">
+                  <thead>
+                    <tr>
+                      <th scope="col">ID</th>
+                      <th scope="col">Name</th>
+                      <th scope="col">Age</th>
+                      <th scope="col" class="imgHide">Image</th>
+                      <th scope="col">Gender</th>
+                      <th scope="col">Designation</th>
+                      <th scope="col">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    
+                    
+                
+                  </tbody>
+
+                </table> 
+
+            </div>
+            <!-- second half done -->
+            </div>  <!-- row khatam -->
+
+    
+
+    </div>      <!-- main container class end -->
+    <!-- javascript source -->
+    <script src="index.js"></script>
+</body>
+</html>
