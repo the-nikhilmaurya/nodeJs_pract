@@ -27,7 +27,7 @@ app.post('/insert', (req, res) => {
   const { value } = req.body;
 
   // SQL INSERT statement
-  const insertQuery = 'INSERT INTO test VALUES ($1) RETURNING *';
+  const insertQuery = 'insert into test values ($1) RETURNING *';
 
   // Execute the query
   pool.query(insertQuery, [value], (err, result) => {
@@ -46,11 +46,11 @@ app.listen(port, () => {
 });
 
 
-app.delete('/delete/:id', (req, res) => {
+app.delete('/delete', (req, res) => {
     const { id } = req.params;
   
     // SQL DELETE statement
-    const deleteQuery = 'DELETE FROM test WHERE id = $1 RETURNING *';
+    const deleteQuery = 'DELETE FROM employees WHERE id = $1 RETURNING *';
   
     // Execute the query
     pool.query(deleteQuery, [id], (err, result) => {
